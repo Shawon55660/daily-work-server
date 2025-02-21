@@ -52,6 +52,27 @@ async function run() {
       const result = await taskCollections.deleteOne(filter)
       res.send(result)
     })
+    //get task by id
+    app.get('/task/:id', async(req,res)=>{
+      const id = req.params.id
+      const filter = {_id: new ObjectId(id)}
+      const result  = await taskCollections.findOne(filter)
+      res.send(result)
+    })
+    //patch task by id
+    app.patch('/task/:id', async(req,res)=>{
+      const id  =  req.params.id
+      const currentData = req.body
+      const filter ={_id: new ObjectId(id)}
+      const updateData = {
+        $set: currentData
+      }
+      const options = {
+        upsert: true
+      }
+      const result  = await taskCollections.updateOne(filter,updateData,options)
+      res.send(result)
+    })
    
   } finally {
     
