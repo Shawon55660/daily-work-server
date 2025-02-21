@@ -73,8 +73,24 @@ async function run() {
       const result  = await taskCollections.updateOne(filter,updateData,options)
       res.send(result)
     })
+    //patch task by id
+    app.patch('/taskCategory/:id', async(req,res)=>{
+      const id  =  req.params.id
+      const {category} = req.body
+      const filter ={_id: new ObjectId(id)}
+      const updateData = {
+        $set: {category:category}
+      }
+      console.log(updateData)
+      const options = {
+        upsert: true
+      }
+      const result  = await taskCollections.updateOne(filter,updateData,options)
+      res.send(result)
+    })
    
-  } finally {
+  }
+   finally {
     
   }
 }
