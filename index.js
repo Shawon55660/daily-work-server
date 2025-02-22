@@ -31,9 +31,23 @@ const client = new MongoClient(uri, {
 });
 const db = client.db('daily-work');
 const taskCollections = db.collection('taskInfo')
+const userCollections = db.collection('userInfo')
 
 async function run() {
   try {
+    app.post('/users', async(req,res)=>{
+      const taskInfo = req.body
+     console.log(taskInfo.userEmail)
+      const isExtited = await userCollections.findOne({userEmail:taskInfo.userEmail})
+      
+      if(isExtited){
+        return
+      }
+      const result = await userCollections.insertOne(taskInfo);
+    if(result){
+      res.send(result)
+    }
+     })
    app.post('/tasks', async(req,res)=>{
     const taskInfo = req.body
     const result = await taskCollections.insertOne(taskInfo);
