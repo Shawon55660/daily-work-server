@@ -6,7 +6,7 @@ const app = express()
 //mideware
 const corsOptions = {
   origin: ['http://localhost:5173',
-    'https://to-do-list-fe473.web.app'
+    'https://to-do-list-fe473.web.app',
     
     
   ],
