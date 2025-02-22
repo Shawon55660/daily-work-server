@@ -41,7 +41,7 @@ async function run() {
       const isExtited = await userCollections.findOne({userEmail:taskInfo.userEmail})
       
       if(isExtited){
-        return
+        return res.send(isExtited)
       }
       const result = await userCollections.insertOne(taskInfo);
     if(result){
